@@ -3,59 +3,19 @@ import {
   ArrayMinSize,
   IsArray,
   IsBoolean,
-  IsDate,
-  IsEmail,
   IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
-  MaxDate,
   MaxLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
 import { Specialties } from '../enums/specialties.enum';
 import { Gender } from '../enums/gender.enum';
+import { CreateMentorDto } from './create-mentor.dto';
+import { PartialType } from '@nestjs/mapped-types';
 
-export class UpdateMentorDto {
-  @IsOptional()
-  @IsString()
-  @IsNotEmpty({ message: "the 'fullName' field must not be empty" })
-  @MaxLength(100, { message: 'Maximum of 100 characters exceeded' })
-  @ApiProperty({
-    required: true,
-    example: 'Fulano de tal',
-  })
-  fullName?: string;
-
-  @IsOptional()
-  @IsNotEmpty({ message: 'The dateOfBirth field must not be empty' })
-  @Transform(({ value }) => new Date(value))
-  @IsDate()
-  @MaxDate(new Date(), {
-    message: 'The date must be before the current date',
-  })
-  @ApiProperty({
-    required: true,
-    example: '2023-04-06',
-    type: 'Date',
-  })
-  dateOfBirth?: Date | string;
-
-  @IsOptional()
-  @IsString({ message: 'Only strings are allowed in this field' })
-  @IsEmail(undefined, {
-    message: 'Invalid e-mail format',
-  })
-  @MaxLength(100, { message: 'Maximum of 100 characters exceeded' })
-  @IsNotEmpty({ message: "the 'email' field must not be empty" })
-  @Transform(({ value }) => value.toLowerCase())
-  @ApiProperty({
-    required: true,
-    example: 'fulano.de.tal@dominio.com',
-  })
-  email?: string;
-
+export class UpdateMentorDto extends PartialType(CreateMentorDto) {
   @IsOptional()
   @IsArray()
   @IsEnum(Specialties, { each: true })
