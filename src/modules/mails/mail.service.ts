@@ -1,7 +1,6 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
 import { handleError } from '../../shared/utils/handle-error.util';
-import { EmailTemplateType } from './types/email-template.type';
 import { MentorEntity } from '../mentors/entities/mentor.entity';
 import { UserEntity } from '../user/entities/user.entity';
 
@@ -134,15 +133,5 @@ export class MailService {
     } catch (error) {
       console.log(error.message);
     }
-  }
-
-  async sendEmail({ subject, template, context, email }: EmailTemplateType) {
-    return; // remover depois que for resolvido
-    await this.mailerService.sendMail({
-      to: email,
-      subject,
-      template,
-      context,
-    });
   }
 }
