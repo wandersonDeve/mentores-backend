@@ -23,13 +23,13 @@ export class AuthService {
       info = await this.userRepository.findUserByEmail(email)
     }
      this.infoConfirm(info);
-    
+
     const passwordIsValid = await bcrypt.compare(password, info.password);
 
     if (!passwordIsValid) {
       await this.invalidPassword(info, type);
     }
-    
+
     info.accessAttempt = 0;
     if (type === "mentor") {
     await this.mentorRepository.updateMentor(info.id, info);
@@ -53,7 +53,7 @@ export class AuthService {
   }
 
   infoConfirm(info: InfoEntity) {
-    if (!info || info.deleted == true) {
+    if (!info || info?.deleted) {
 
       const message = "invalid e-mail or password"
       throw new HttpException({ message }, HttpStatus.NOT_FOUND)
@@ -67,7 +67,6 @@ export class AuthService {
 
     }
 
-    return;
   }
 
   async invalidPassword(info: InfoEntity, type) {
