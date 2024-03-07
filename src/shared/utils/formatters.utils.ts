@@ -3,21 +3,17 @@ import { CreateTestimonyDto } from '../../modules/testimony/dto/create-testimony
 export const dataFormatter = (obj: CreateTestimonyDto) => {
   obj.userName =
     obj.userName[0].toUpperCase() + obj.userName.slice(1, obj.userName.length);
-
   const testimonyText = obj.description.split(' ');
-
   let count = 0;
-  for (let i = 0; i < testimonyText.length; i++) {
-    if (testimonyText[i]) {
+  for (const word of testimonyText) {
+    if (word) {
       count = count + 1;
       if (count === 1) {
         obj.description =
-          testimonyText[i][0].toUpperCase() +
-          testimonyText[i].slice(1, testimonyText.length) +
-          ' ';
+          word[0].toUpperCase() + word.slice(1, word.length) + ' ';
       }
       if (count > 1) {
-        obj.description += testimonyText[i] + ' ';
+        obj.description += word + ' ';
       }
     }
   }

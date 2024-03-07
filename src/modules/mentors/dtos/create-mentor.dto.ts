@@ -13,7 +13,6 @@ import {
 import { Match } from '../decorators/match.decorator';
 
 export class CreateMentorDto {
-
   @IsString()
   @IsNotEmpty({ message: "the 'fullName' field must not be empty" })
   @MaxLength(100, { message: 'Maximum of 100 characters exceeded' })
@@ -66,7 +65,7 @@ export class CreateMentorDto {
   @IsNotEmpty({ message: "the 'password' field must not be empty" })
   @IsString({ message: 'Only strings are allowed in this field' })
   @Matches(
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>])[a-zA-Z\d!@#$%^&*()\-_=+{};:,<.>.]{8,}$/,
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>])[a-zA-Z\d!@#$%^&*()\-_=+{};:,.<>]{8,}$/,
     {
       message:
         'Password must have a minimum of 8 characters, a capital letter, a number and a symbol',
@@ -92,5 +91,4 @@ export class CreateMentorDto {
   @Exclude()
   @IsOptional()
   code: string;
-
 }

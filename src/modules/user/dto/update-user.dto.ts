@@ -1,8 +1,16 @@
-import { IsDate, IsEmail, IsNotEmpty, IsOptional, IsString, Matches, MaxDate, MaxLength } from 'class-validator';
+import {
+  IsDate,
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Matches,
+  MaxDate,
+  MaxLength,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import { Match } from 'src/modules/mentors/decorators/match.decorator';
-
 
 export class UpdateUserDto {
   @IsString()
@@ -14,7 +22,7 @@ export class UpdateUserDto {
   })
   fullName: string;
 
-  @IsNotEmpty({ message: "The dateOfBirth field must not be empty"})
+  @IsNotEmpty({ message: 'The dateOfBirth field must not be empty' })
   @Transform(({ value }) => new Date(value))
   @IsDate()
   @MaxDate(new Date(), {
@@ -42,7 +50,7 @@ export class UpdateUserDto {
   @IsNotEmpty({ message: "the 'password' field must not be empty" })
   @IsString({ message: 'Only strings are allowed in this field' })
   @Matches(
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>])[a-zA-Z\d!@#$%^&*()\-_=+{};:,<.>.]{8,}$/,
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>])[a-zA-Z\d!@#$%^&*()\-_=+{};:,.<>]{8,}$/,
     {
       message:
         'Password must have a minimum of 8 characters, a capital letter, a number and a symbol',
