@@ -24,8 +24,6 @@ export class MailService {
         },
       })
       .catch(handleError);
-
-    return;
   }
 
   async mentorSendCreationConfirmation(mentor: MentorEntity) {
@@ -34,7 +32,7 @@ export class MailService {
 
     const url = `${URL_CONFIRM_EMAIL}code=${code}&email=${email}`;
 
-    console.log( this.mailerService)
+    console.log(this.mailerService);
     try {
       await this.mailerService
         .sendMail({
@@ -51,8 +49,6 @@ export class MailService {
     } catch (error) {
       console.log(error.message);
     }
-
-    return;
   }
 
   async mentorSendRestorationEmail(mentorData: MentorEntity) {
@@ -75,8 +71,6 @@ export class MailService {
     } catch (error) {
       console.log(error.message);
     }
-
-    return;
   }
 
   async userSendEmailConfirmation(user: UserEntity): Promise<void> {
@@ -94,8 +88,6 @@ export class MailService {
         },
       })
       .catch(handleError);
-
-    return;
   }
 
   async userSendCreationConfirmation(user: UserEntity) {
@@ -120,8 +112,6 @@ export class MailService {
     } catch (error) {
       console.log(error.message);
     }
-
-    return;
   }
 
   async userSendRestorationEmail(userData: UserEntity) {
@@ -144,8 +134,6 @@ export class MailService {
     } catch (error) {
       console.log(error.message);
     }
-
-    return;
   }
 
   async sendEmail({ subject, template, context, email }: EmailTemplateType) {
@@ -156,7 +144,5 @@ export class MailService {
       template,
       context,
     });
-
-    return;
   }
 }
